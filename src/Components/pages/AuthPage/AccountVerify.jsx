@@ -9,14 +9,14 @@ function AccountVerify() {
     const forgotEmailFunc = (e) => {
         axios.post(`${process.env.REACT_APP_API_DOMAIN}/admin/verify/${username}/${randString}`)
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 setMessage({
                     status: "200",
                     text: response.data.msg,
                 })
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
                 setMessage({
                     status: "401",
                     text: err.response.data.msg,

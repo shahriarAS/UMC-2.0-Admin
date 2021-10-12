@@ -23,10 +23,10 @@ function DeleteClass() {
                     alert(response.data.msg)
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
         } else {
-            alert("Fill Up All Field.")
+            alert("Fill Up All The Field Correctly. Double Check Before Submit, please.")
         }
     }
 

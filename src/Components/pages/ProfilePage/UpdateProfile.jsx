@@ -3,6 +3,7 @@ import axios from "axios"
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { emailValidation, urlValidation } from "../../utils/ValidationUtil"
 
 function UpdateProfile() {
     const ref = useRef(null)
@@ -28,10 +29,11 @@ function UpdateProfile() {
         },
 
         onSubmit: values => {
-            if (values.username && values.email && values.facebook &&
-                values.phone && values.fullName && values.bloodGroup &&
-                values.fatherPhone && values.fatherOccupation && values.motherPhone &&
-                values.motherOccupation && values.hscBatch && values.schoolName && values.collegeName) {
+            if (values.username && values.email && emailValidation(values.email) && values.facebook && urlValidation(values.facebook) && values.phone
+                && values.fullName && values.bloodGroup && values.fatherPhone
+                && values.fatherOccupation && values.motherPhone && values.motherOccupation
+                && values.hscBatch && values.schoolName && values.collegeName
+            ) {
 
                 axios.put(`${process.env.REACT_APP_API_DOMAIN}/admin/update`, values, {
                     headers: {
@@ -42,10 +44,10 @@ function UpdateProfile() {
                         alert(response.data.msg)
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        // console.log(error);
                     });
             } else {
-                alert("Fill Up All Field.")
+                alert("Fill Up All The Field Correctly. Double Check Before Submit, please.")
             }
         },
 
@@ -141,6 +143,7 @@ function UpdateProfile() {
       </label>
                                 <div className="relative">
                                     <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="hscBatch" onChange={formik.handleChange} value={formik.values.hscBatch} required>
+                                        <option value="">Select HSC Batch</option>
                                         <option>2021</option>
                                         <option>2022</option>
                                         <option>2023</option>
@@ -156,6 +159,7 @@ function UpdateProfile() {
       </label>
                                 <div className="relative">
                                     <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="bloodGroup" onChange={formik.handleChange} value={formik.values.bloodGroup} required>
+                                        <option value="">Select Blood Group</option>
                                         <option>O+</option>
                                         <option>O-</option>
                                         <option>A+</option>

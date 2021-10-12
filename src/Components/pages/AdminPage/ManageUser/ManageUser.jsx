@@ -62,11 +62,11 @@ function ManageUser() {
             }
         })
             .then(response => {
-                console.log(response.data.result)
+                // console.log(response.data.result)
                 setData(response.data.result)
             })
             .catch(error => {
-                console.log(error)
+                // console.log(error)
             })
     }
 

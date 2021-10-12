@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import axios from "axios"
 import { useSelector } from 'react-redux';
+import JoditEditor from "jodit-react";
+import { urlValidation } from "../../../utils/ValidationUtil"
 
 function AddClass() {
+    const editor = useRef(null)
+    const [editorState, setEditorState] = useState("")
     const [formValue, setFormValue] = useState({
         title: "",
         classNumber: "",
@@ -13,11 +17,16 @@ function AddClass() {
     })
     const UMCData = useSelector((state) => state)
 
+    const config = {
+        readonly: false // all options from https://xdsoft.net/jodit/doc/
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (formValue.title && formValue.classNumber && formValue.videoLink &&
-            formValue.course && formValue.part && formValue.chapter) {
-            axios.post(`${process.env.REACT_APP_API_DOMAIN}/class/create`, formValue, {
+            urlValidation(formValue.videoLink) && formValue.course && formValue.part && formValue.chapter
+            && editorState) {
+            axios.post(`${process.env.REACT_APP_API_DOMAIN}/class/create`, { ...formValue, classCaption: editorState }, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
@@ -26,10 +35,10 @@ function AddClass() {
                     alert(response.data.msg)
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
         } else {
-            alert("Fill Up All Field.")
+            alert("Fill Up All The Field Correctly. Double Check Before Submit, please.")
         }
     }
 
@@ -59,6 +68,21 @@ function AddClass() {
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                        Class Caption
+      </label>
+                    <JoditEditor
+                        ref={editor}
+                        value={editorState}
+                        config={config}
+                        tabIndex={1} // tabIndex of textarea
+                        onBlur={newContent => setEditorState(newContent)} // preferred to use only this option to update the content for performance reasons
+                    />
+
+                </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
                         Course Name
@@ -79,7 +103,7 @@ function AddClass() {
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
-                        Part 
+                        Part
                                 </label>
                     <div className="relative">
                         <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="part" onChange={(e) => setFormValue({ ...formValue, part: e.target.value })} value={formValue.part} required >

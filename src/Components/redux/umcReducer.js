@@ -24,6 +24,11 @@ function UMCReducer(state = initialState, action) {
                 userDetails: {}
             };
             break;
+        case "start_loading":
+            return {
+                ...state,
+                loading_status: "loading"
+            }
         case "finish_loading":
             return {
                 ...state,

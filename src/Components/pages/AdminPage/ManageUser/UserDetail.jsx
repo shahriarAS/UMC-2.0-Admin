@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios"
 
 function UserDetail({ setModal, modalData }) {
-    console.log(modalData)
+    // console.log(modalData)
     const updateUserStatus = (active) => {
         axios.put(`${process.env.REACT_APP_API_DOMAIN}/user/update/${modalData["username"]}`, { active }, {
             headers: {
@@ -13,7 +13,7 @@ function UserDetail({ setModal, modalData }) {
                 alert(response.data.msg)
             })
             .catch(function (error) {
-                console.log(error);
+                // console.log(error);
             });
     }
     const deleteUser = (active) => {
@@ -28,7 +28,7 @@ function UserDetail({ setModal, modalData }) {
                     alert(response.data.msg)
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
         }
     }

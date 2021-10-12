@@ -1,23 +1,28 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
+import { emailValidation } from "../../utils/ValidationUtil"
 
 function PasswordForgot() {
     const [forgotEmail, setForgotEmail] = useState("")
     const history = useHistory();
 
     const forgotEmailFunc = (e) => {
-        e.preventDefault()
-        axios.post(`${process.env.REACT_APP_API_DOMAIN}/admin/forgot`, { email: forgotEmail })
-            .then(response => {
-                console.log(response)
-                alert(response.data.msg)
-                history.push("/")
-            })
-            .catch(err => {
-                console.log(err)
-                alert(err.response.data.msg)
-            })
+        if (forgotEmail && emailValidation(forgotEmail)) {
+            e.preventDefault()
+            axios.post(`${process.env.REACT_APP_API_DOMAIN}/admin/forgot`, { email: forgotEmail })
+                .then(response => {
+                    // console.log(response)
+                    alert(response.data.msg)
+                    history.push("/")
+                })
+                .catch(err => {
+                    // console.log(err)
+                    alert(err.response.data.msg)
+                })
+        } else {
+            alert("Fill Up All The Field Correctly. Double Check Before Submit, please.")
+        }
     }
 
     return (

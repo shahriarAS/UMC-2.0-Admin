@@ -25,7 +25,7 @@ function PasswordReset() {
         },
 
         onSubmit: values => {
-            if (values.newPassword === values.confirmPassword) {
+            if (values.newPassword && values.confirmPassword && (values.newPassword === values.confirmPassword)) {
                 axios.post(`${process.env.REACT_APP_API_DOMAIN}/admin/reset/${username}/${randString}`, values)
                     .then(function (response) {
                         alert(response.data.msg)
@@ -35,12 +35,12 @@ function PasswordReset() {
                         history.push("/login")
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        // console.log(error);
                         alert(error.response.data.msg)
                     });
             }
             else {
-                alert("Password Didn't Matched.")
+                alert("Fill Up All The Field Correctly. Double Check Before Submit, please.")
             }
         },
 
@@ -49,10 +49,10 @@ function PasswordReset() {
     useEffect(() => {
         axios.post(`${process.env.REACT_APP_API_DOMAIN}/admin/checkString/${username}/${randString}`)
             .then(function (response) {
-                console.log(response.data.msg)
+                // console.log(response.data.msg)
             })
             .catch(function (error) {
-                console.log(error)
+                // console.log(error)
                 history.push("/")
             });
     }, [])

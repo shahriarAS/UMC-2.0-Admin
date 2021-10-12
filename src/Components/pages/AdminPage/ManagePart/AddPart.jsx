@@ -12,7 +12,7 @@ function AddPart() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(formValue)
+        // console.log(formValue)
         if (formValue.title && formValue.partNumber &&
             formValue.course) {
             axios.post(`${process.env.REACT_APP_API_DOMAIN}/part/create`, formValue, {
@@ -24,10 +24,10 @@ function AddPart() {
                     alert(response.data.msg)
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
         } else {
-            alert("Fill Up All Field.")
+            alert("Fill Up All The Field Correctly. Double Check Before Submit, please.")
         }
     }
 

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import axios from "axios"
 import { useSelector } from 'react-redux';
+import { urlValidation } from "../../../utils/ValidationUtil"
 
 function AddPdf() {
     const [formValue, setFormValue] = useState({
@@ -15,7 +16,7 @@ function AddPdf() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formValue.title && formValue.link && formValue.course && formValue.part && formValue.chapter && formValue.class) {
+        if (formValue.title && formValue.link && urlValidation(formValue.link) && formValue.course && formValue.part && formValue.chapter && formValue.class) {
             axios.post(`${process.env.REACT_APP_API_DOMAIN}/pdf/create`, formValue, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
@@ -25,10 +26,10 @@ function AddPdf() {
                     alert(response.data.msg)
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
         } else {
-            alert("Fill Up All Field.")
+            alert("Fill Up All The Field Correctly. Double Check Before Submit, please.")
         }
     }
 

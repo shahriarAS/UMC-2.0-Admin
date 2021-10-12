@@ -14,7 +14,7 @@ function MyCourses() {
                 setAllCourses(tempCourseList)
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
     }
 
@@ -33,7 +33,7 @@ function MyCourses() {
                                 <div key={Math.random()} className="max-w-sm mx-4 md:mx-2 bg-gray-900 border-2 border-gray-400 px-6 pt-0 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
                                     <h3 className="mb-3 pt-3 text-xl font-bold text-white">Beginner Friendly</h3>
                                     <div className="relative">
-                                        <img className="w-full rounded-xl" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="Colors" />
+                                        <img className="w-full rounded-xl" src={course.thumbnail} alt="Course Thumbnail" />
                                         <p className="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">{course.price} BDT</p>
                                     </div>
                                     <h1 className="mt-4 text-white text-3xl font-bold cursor-pointer">

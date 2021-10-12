@@ -55,7 +55,7 @@ function App() {
         })
       })
       .catch(error => {
-        console.log(error)
+        // console.log(error)
       })
   }
 
@@ -75,7 +75,7 @@ function App() {
         })
       })
       .catch(error => {
-        console.log(error)
+        // console.log(error)
         dispatch({
           type: "finish_loading",
         })

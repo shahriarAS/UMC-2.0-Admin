@@ -26,7 +26,7 @@ function PasswordChange() {
         },
 
         onSubmit: values => {
-            if (values.newPassword && values.newPassword === values.confirmPassword) {
+            if (values.newPassword && values.oldPassword && values.confirmPassword && (values.newPassword === values.confirmPassword)) {
                 axios.post(`${process.env.REACT_APP_API_DOMAIN}/admin/changepass`, values, {
                     headers: {
                         Authorization: "Bearer " + localStorage.getItem("token")
@@ -40,12 +40,12 @@ function PasswordChange() {
                         // history.push("/login")
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        // console.log(error);
                         alert(error.response.data.msg)
                     });
             }
             else {
-                alert("Password Didn't Matched.")
+                alert("Password Didn't Matched. And Ensure You Filled Up All Field")
             }
         },
 

@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import axios from "axios"
 import { useSelector } from 'react-redux';
+import JoditEditor from "jodit-react";
+import { urlValidation } from "../../../utils/ValidationUtil"
 
 function UpdateClass() {
+    const editor = useRef(null)
+    const [editorState, setEditorState] = useState("")
     const [formValue, setFormValue] = useState({
         title: "",
         classNumber: "",
@@ -14,10 +18,19 @@ function UpdateClass() {
     })
     const UMCData = useSelector((state) => state)
 
+    const config = {
+        readonly: false // all options from https://xdsoft.net/jodit/doc/
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formValue.title && formValue.classNumber && formValue.videoLink && formValue.course && formValue.part && formValue.chapter && formValue.class) {
-            axios.put(`${process.env.REACT_APP_API_DOMAIN}/class/update/${formValue.class}`, {title: formValue.title, classNumber:formValue.classNumber, videoLink: formValue.videoLink}, {
+        if (formValue.title && formValue.classNumber && formValue.videoLink &&
+            urlValidation(formValue.videoLink) && formValue.course &&
+            formValue.part && formValue.chapter && formValue.class && editorState) {
+            axios.put(`${process.env.REACT_APP_API_DOMAIN}/class/update/${formValue.class}`, {
+                title: formValue.title, classNumber: formValue.classNumber,
+                videoLink: formValue.videoLink, classCaption: editorState
+            }, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
@@ -26,15 +39,16 @@ function UpdateClass() {
                     alert(response.data.msg)
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
         } else {
-            alert("Fill Up All Field.")
+            alert("Fill Up All The Field Correctly. Double Check Before Submit, please.")
         }
     }
 
     const customClassHandle = (e) => {
         const forClass = UMCData.allCourse.find(course => course._id == formValue.course).parts.find(part => (part._id == formValue.part)).chapters.find(chapter => (chapter._id == formValue.chapter)).classes.find(classItem => (classItem._id == e.target.value))
+        setEditorState(forClass.classCaption)
         setFormValue({ ...formValue, class: e.target.value, title: forClass.title, classNumber: forClass.classNumber, videoLink: forClass.videoLink })
     }
 
@@ -62,7 +76,7 @@ function UpdateClass() {
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
-                        Part 
+                        Part
                                 </label>
                     <div className="relative">
                         <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="part" onChange={(e) => setFormValue({ ...formValue, part: e.target.value })} value={formValue.part} required >
@@ -141,6 +155,22 @@ function UpdateClass() {
                         </div>
                     </div>
                 </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                            Class Caption
+      </label>
+                        <JoditEditor
+                            ref={editor}
+                            value={editorState}
+                            config={config}
+                            tabIndex={1} // tabIndex of textarea
+                            onBlur={newContent => setEditorState(newContent)} // preferred to use only this option to update the content for performance reasons
+                        />
+
+                    </div>
+                </div>
+
             </div>
             <div className="flex flex-wrap -mx-3 my-2 mt-8">
                 <div className="w-full md:w-full px-3 mb-6 md:mb-0">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios"
 
 function OrderDetail({ setModal, modalData }) {
-    console.log(modalData)
+    // console.log(modalData)
     const updateOrderStatus = (order_status) => {
         axios.put(`${process.env.REACT_APP_API_DOMAIN}/order/update/${modalData["_id"]}`, { order_status }, {
             headers: {
@@ -13,7 +13,7 @@ function OrderDetail({ setModal, modalData }) {
                 alert(response.data.msg)
             })
             .catch(function (error) {
-                console.log(error);
+                // console.log(error);
             });
     }
     return (

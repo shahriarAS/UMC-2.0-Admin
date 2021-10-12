@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react'
 import axios from "axios"
+import JoditEditor from "jodit-react";
 import { useSelector } from 'react-redux';
 
 function UpdateCourse() {
+    const editor = useRef(null)
+    const [editorState, setEditorState] = useState("")
     const [formValue, setFormValue] = useState({
         title: "",
         courseNumber: "",
-        courseDetails: "",
+        // courseDetails: "",
         trailer: "",
         thumbnail: "",
         price: "",
@@ -15,13 +18,18 @@ function UpdateCourse() {
     })
     const UMCData = useSelector((state) => state)
 
+    const config = {
+        readonly: false // all options from https://xdsoft.net/jodit/doc/
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formValue.title && formValue.courseNumber && formValue.courseDetails && formValue.trailer && formValue.thumbnail && formValue.price && formValue.features && formValue.course) {
+        if (formValue.title && formValue.courseNumber && editorState && formValue.trailer && formValue.thumbnail && formValue.price && formValue.features && formValue.course) {
             axios.put(`${process.env.REACT_APP_API_DOMAIN}/course/update/${formValue.course}`, {
                 title: formValue.title,
                 courseNumber: formValue.courseNumber,
-                courseDetails: formValue.courseDetails,
+                // courseDetails: formValue.courseDetails,
+                courseDetails: editorState,
                 trailer: formValue.trailer,
                 thumbnail: formValue.thumbnail,
                 price: formValue.price,
@@ -35,21 +43,22 @@ function UpdateCourse() {
                     alert(response.data.msg)
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
         } else {
-            alert("Fill Up All Field.")
+            alert("Fill Up All The Field Correctly. Double Check Before Submit, please.")
         }
     }
 
     const customCourseHandle = (e) => {
         const forCourse = UMCData.allCourse.find(course => course._id == e.target.value)
+        setEditorState(forCourse.courseDetails)
         setFormValue({
             ...formValue,
             course: e.target.value,
             title: forCourse.title,
             courseNumber: forCourse.courseNumber,
-            courseDetails: forCourse.courseDetails,
+            // courseDetails: forCourse.courseDetails,
             trailer: forCourse.trailer,
             thumbnail: forCourse.thumbnail,
             price: forCourse.price,
@@ -95,17 +104,17 @@ function UpdateCourse() {
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
                         Course Details
       </label>
-                    <input className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="courseDetails" onChange={(e) => setFormValue({ ...formValue, courseDetails: e.target.value })} value={formValue.courseDetails} required />
-                </div>
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
-                        Trailer
-      </label>
-                    <input className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="trailer" onChange={(e) => setFormValue({ ...formValue, trailer: e.target.value })} value={formValue.trailer} required />
+                    <JoditEditor
+                        ref={editor}
+                        value={editorState}
+                        config={config}
+                        tabIndex={1} // tabIndex of textarea
+                        onBlur={newContent => setEditorState(newContent)} // preferred to use only this option to update the content for performance reasons
+                    />
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -130,6 +139,12 @@ function UpdateCourse() {
                         Feathured
       </label>
                     <textarea className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="feathured" onChange={(e) => setFormValue({ ...formValue, features: e.target.value })} value={formValue.features} required />
+                </div>
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
+                        Trailer ( Video ID From Youtube )
+      </label>
+                    <input className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="trailer" onChange={(e) => setFormValue({ ...formValue, trailer: e.target.value })} value={formValue.trailer} required />
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 my-2 mt-8">
