@@ -6,11 +6,14 @@ import { useHistory } from 'react-router-dom';
 import UpdateProfile from './UpdateProfile';
 import PasswordChange from './PasswordChange';
 import MyCourses from './MyCourses';
+import LoginPage from '../AuthPage/LoginPage';
 
 function ProfilePage() {
     const ref = useRef(null)
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [tabTitle, setTabTitle] = useState("update")
+
+    var UMCState = useSelector((state) => state);
 
     const clickedOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {
@@ -30,7 +33,7 @@ function ProfilePage() {
     });
     return (
 
-        <div className="flex h-screen bg-gray-200">
+        UMCState.auth.username ? (<div className="flex h-screen bg-gray-200">
 
             <button className={`fixed top-1/2 bg-indigo-400 lg:hidden rounded-lg focus:outline-none focus:shadow-outline ${sidebarOpen ? "hidden" : ""}`} onClick={toggleMenu}>
                 <svg fill="" viewBox="0 0 20 20" className="w-6 h-6">
@@ -92,9 +95,10 @@ function ProfilePage() {
             {
                 tabTitle == "update" ? <UpdateProfile /> :
                     tabTitle == "security" ? <PasswordChange /> :
-                    tabTitle == "my_courses" ? <MyCourses /> : null
+                        tabTitle == "my_courses" ? <MyCourses /> : null
             }
-        </div>
+        </div>) : <LoginPage />
+
     )
 }
 

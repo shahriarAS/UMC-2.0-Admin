@@ -97,7 +97,7 @@ function App() {
 
           {/* Client Route */}
           <Route path="/" exact component={HomePage} />
-          <Route path="/signup" exact component={SignUpPage} />
+          {/* <Route path="/signup" exact component={SignUpPage} /> */}
           <Route path="/login" exact component={LoginPage} />
           <Route path="/forgot" exact component={PasswordForgot} />
           <Route path="/admin/verify/:username/:randString" exact component={AccountVerify} />
