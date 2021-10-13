@@ -93,7 +93,7 @@ function ManageUser() {
 
     return (
         <>
-        {openModal ? <UserDetail setModal={setOpenModal} modalData={modalData} /> : null}
+            {openModal ? <UserDetail setModal={setOpenModal} modalData={modalData} /> : null}
             <div className="flex-1 flex flex-col overflow-hidden">
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <div className="container mx-auto px-6 py-8">
@@ -115,7 +115,7 @@ function ManageUser() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
+                            <div className="align-middle inline-block min-w-full min-h-screen shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
                                 <table className="min-w-full" {...getTableProps()}>
                                     <thead>
                                         {headerGroups.map(headerGroup => (

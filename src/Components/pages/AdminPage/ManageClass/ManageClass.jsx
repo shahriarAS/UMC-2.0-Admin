@@ -1,42 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react'
-import axios from "axios"
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React from 'react'
 import AddClass from './AddClass';
-import DeleteCourse from '../ManageCourse/DeleteCourse';
 import DeleteClass from './DeleteClass';
 import UpdateClass from './UpdateClass';
 
 function ManageClass() {
-    const [formValue, setFormValue] = useState({
-        title: "",
-        classNumber: "",
-        videoLink: "",
-        course: "",
-        part: "",
-        chapter: ""
-    })
-    const UMCData = useSelector((state) => state)
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if (formValue.title && formValue.classNumber && formValue.videoLink &&
-            formValue.course && formValue.part && formValue.chapter) {
-            axios.post(`${process.env.REACT_APP_API_DOMAIN}/class/create`, formValue, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            })
-                .then(function (response) {
-                    alert(response.data.msg)
-                })
-                .catch(function (error) {
-                    // console.log(error);
-                });
-        } else {
-            alert("Fill Up All The Field Correctly. Double Check Before Submit, please.")
-        }
-    }
 
     return (
         <div className="flex-1 flex flex-col overflow-hidden">

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import axios from "axios"
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import UMCReducer from '../../../redux/umcReducer';
 import LoadingScreen from '../../LoadingScreen';
 
 function DeleteChapter() {
@@ -12,6 +13,22 @@ function DeleteChapter() {
     })
     const UMCData = useSelector((state) => state)
 
+    // Redux Dispatch
+    const dispatch = useDispatch(UMCReducer);
+
+    const grabAllCourse = () => {
+        axios.get(`${process.env.REACT_APP_API_DOMAIN}/course/view`)
+            .then(response => {
+                dispatch({
+                    type: "populate_all_courses",
+                    payload: response.data.result
+                })
+            })
+            .catch(error => {
+                // console.log(error)
+            })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (formValue.course && formValue.part && formValue.chapter) {
@@ -22,6 +39,7 @@ function DeleteChapter() {
                 }
             })
                 .then(function (response) {
+                    grabAllCourse()
                     setSectionLoading(false)
                     alert(response.data.msg)
                 })

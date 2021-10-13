@@ -1,7 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
-import axios from "axios"
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React from 'react'
 import AddPDF from './AddPDF';
 import DeletePdf from './DeletePDF';
 import UpdatePdf from './UpdatePDF';

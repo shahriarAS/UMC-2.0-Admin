@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import axios from "axios"
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import UMCReducer from '../../../redux/umcReducer';
+import LoadingScreen from '../../LoadingScreen';
 
 function DeletePdf() {
+    const [sectionLoading, setSectionLoading] = useState(false)
     const [formValue, setFormValue] = useState({
         course: "",
         part: "",
@@ -12,18 +15,38 @@ function DeletePdf() {
     })
     const UMCData = useSelector((state) => state)
 
+    // Redux Dispatch
+    const dispatch = useDispatch(UMCReducer);
+
+    const grabAllCourse = () => {
+        axios.get(`${process.env.REACT_APP_API_DOMAIN}/course/view`)
+            .then(response => {
+                dispatch({
+                    type: "populate_all_courses",
+                    payload: response.data.result
+                })
+            })
+            .catch(error => {
+                // console.log(error)
+            })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (formValue.course && formValue.part && formValue.chapter && formValue.class && formValue.pdf) {
+            setSectionLoading(true)
             axios.delete(`${process.env.REACT_APP_API_DOMAIN}/pdf/delete/${formValue.pdf}`, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
             })
                 .then(function (response) {
+                                        grabAllCourse()
+                    setSectionLoading(false)
                     alert(response.data.msg)
                 })
                 .catch(function (error) {
+                    setSectionLoading(false)
                     // console.log(error);
                 });
         } else {
@@ -31,8 +54,9 @@ function DeletePdf() {
         }
     }
 
-    return (
-        <form className="px-4 py-8 lg:px-0" method="post" onSubmit={handleSubmit}>
+return (
+        sectionLoading ? <LoadingScreen /> :
+            <form className="px-4 py-8 lg:px-0" method="post" onSubmit={handleSubmit}>
             <h3 className="text-gray-700 text-xl font-medium text-center mb-4">Delete PDF</h3>
             <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
