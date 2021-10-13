@@ -32,11 +32,11 @@ function UserDetail({ setModal, modalData }) {
         })
             .then(function (response) {
                 grabAllCourse()
-                setSectionLoading(true)
+                setSectionLoading(false)
                 alert(response.data.msg)
             })
             .catch(function (error) {
-                setSectionLoading(true)
+                setSectionLoading(false)
                 // console.log(error);
             });
     }
@@ -51,7 +51,7 @@ function UserDetail({ setModal, modalData }) {
             })
                 .then(function (response) {
                     grabAllCourse()
-                    setSectionLoading(true)
+                    setSectionLoading(false)
                     alert(response.data.msg)
                 })
                 .catch(function (error) {
