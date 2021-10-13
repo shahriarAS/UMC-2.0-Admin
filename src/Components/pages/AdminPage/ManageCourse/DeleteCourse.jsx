@@ -29,8 +29,9 @@ function DeleteCourse() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formValue.course) {
-            sectionLoading(true)
+        var deleteConfirm = prompt(`Please Type 'DELETE' in the field below.`, "");
+        if (formValue.course && deleteConfirm != null && deleteConfirm == "DELETE") {
+            setSectionLoading(true)
             axios.delete(`${process.env.REACT_APP_API_DOMAIN}/course/delete/${formValue.course}`, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")

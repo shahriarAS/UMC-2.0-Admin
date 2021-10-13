@@ -30,7 +30,8 @@ function DeletePart() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formValue.course && formValue.part) {
+        var deleteConfirm = prompt(`Please Type 'DELETE' in the field below.`, "");
+        if (formValue.course && formValue.part && deleteConfirm != null && deleteConfirm == "DELETE") {
             setSectionLoading(true)
             axios.delete(`${process.env.REACT_APP_API_DOMAIN}/part/delete/${formValue.part}`, {
                 headers: {

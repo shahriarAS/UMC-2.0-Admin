@@ -32,7 +32,9 @@ function DeleteClass() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formValue.course && formValue.part && formValue.chapter && formValue.class) {
+        var deleteConfirm = prompt(`Please Type 'DELETE' in the field below.`, "");
+        if (formValue.course && formValue.part && formValue.chapter &&
+            formValue.class && deleteConfirm != null && deleteConfirm == "DELETE") {
             setSectionLoading(true)
             axios.delete(`${process.env.REACT_APP_API_DOMAIN}/class/delete/${formValue.class}`, {
                 headers: {
