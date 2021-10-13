@@ -45,7 +45,7 @@ function AddCourse() {
         // console.log(formValue)
         if (formValue.title && formValue.courseNumber && formValue.trailer &&
             formValue.thumbnail && formValue.price && formValue.features) {
-            sectionLoading(true)
+                setSectionLoading(true)
             axios.post(`${process.env.REACT_APP_API_DOMAIN}/course/create`, { ...formValue, courseDetails: editorState }, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
