@@ -43,8 +43,7 @@ function AddClass() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formValue.title && formValue.classNumber && formValue.videoLink &&
-            urlValidation(formValue.videoLink) && formValue.course && formValue.part && formValue.chapter
+        if (formValue.title && formValue.classNumber && formValue.videoLink && formValue.course && formValue.part && formValue.chapter
             && editorState) {
             setSectionLoading(true)
             axios.post(`${process.env.REACT_APP_API_DOMAIN}/class/create`, { ...formValue, classCaption: editorState }, {
@@ -87,9 +86,9 @@ function AddClass() {
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
-                            Video Link ( NOT Embded, Only Link)
+                            Video ID ( NOT Link, Only Id)
       </label>
-                        <input className="appearance-none block w-full bg-gray-200 text-black border border-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="url" placeholder="Video Link ( NOT Embded, Only Link)" name="videoLink" onChange={(e) => setFormValue({ ...formValue, videoLink: e.target.value })} value={formValue.videoLink} required />
+                        <input className="appearance-none block w-full bg-gray-200 text-black border border-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Video Link ( NOT Embded, Only Link)" name="videoLink" onChange={(e) => setFormValue({ ...formValue, videoLink: e.target.value })} placeholder="571191143" value={formValue.videoLink} required />
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">

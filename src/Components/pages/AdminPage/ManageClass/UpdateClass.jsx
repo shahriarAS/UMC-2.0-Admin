@@ -43,8 +43,7 @@ function UpdateClass() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formValue.title && formValue.classNumber && formValue.videoLink &&
-            urlValidation(formValue.videoLink) && formValue.course &&
+        if (formValue.title && formValue.classNumber && formValue.videoLink && formValue.course &&
             formValue.part && formValue.chapter && formValue.class && editorState) {
             setSectionLoading(true)
             axios.put(`${process.env.REACT_APP_API_DOMAIN}/class/update/${formValue.class}`, {
@@ -175,7 +174,7 @@ function UpdateClass() {
                                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                                     Video Link
       </label>
-                                <input className="appearance-none block w-full bg-gray-200 text-black border border-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="url" placeholder="Class 1" name="videoLink" onChange={(e) => setFormValue({ ...formValue, videoLink: e.target.value })} value={formValue.videoLink} required />
+                                <input className="appearance-none block w-full bg-gray-200 text-black border border-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="571191143" name="videoLink" onChange={(e) => setFormValue({ ...formValue, videoLink: e.target.value })} value={formValue.videoLink} required />
                             </div>
                         </div>
                     </div>
