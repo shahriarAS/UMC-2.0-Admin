@@ -86,7 +86,7 @@ function AddClass() {
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
-                            Video ID ( NOT Link, Only Id)
+                            Vimeo Video ID / Facebook Video Link
       </label>
                         <input className="appearance-none block w-full bg-gray-200 text-black border border-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Video Link ( NOT Embded, Only Link)" name="videoLink" onChange={(e) => setFormValue({ ...formValue, videoLink: e.target.value })} placeholder="571191143" value={formValue.videoLink} required />
                     </div>
@@ -113,10 +113,10 @@ function AddClass() {
       </label>
                         <div className="relative">
                             <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="course" onChange={(e) => setFormValue({ ...formValue, course: e.target.value })} value={formValue.course} required>
-                                <option value="">Select A Course</option>
+                                <option key={Math.random()} value="">Select A Course</option>
                                 {
                                     UMCData.allCourse.map(course => (
-                                        <option value={course._id}>{course.title}</option>
+                                        <option key={Math.random()} value={course._id}>{course.title}</option>
                                     ))
                                 }
                             </select>
@@ -131,10 +131,10 @@ function AddClass() {
                                 </label>
                         <div className="relative">
                             <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="part" onChange={(e) => setFormValue({ ...formValue, part: e.target.value })} value={formValue.part} required >
-                                <option value="">Select A Part</option>
+                                <option key={Math.random()} value="">Select A Part</option>
                                 {
                                     formValue.course && UMCData.allCourse.find(course => course._id == formValue.course).parts.map(part => (
-                                        <option value={part._id}>{part.title}</option>
+                                        <option key={Math.random()} value={part._id}>{part.title}</option>
                                     ))
                                 }
                             </select>
@@ -151,10 +151,10 @@ function AddClass() {
                                 </label>
                         <div className="relative">
                             <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="chapter" onChange={(e) => setFormValue({ ...formValue, chapter: e.target.value })} value={formValue.chapter} required >
-                                <option value="">Select A Chapter</option>
+                                <option key={Math.random()} value="">Select A Chapter</option>
                                 {
                                     formValue.part && UMCData.allCourse.find(course => course._id == formValue.course).parts.find(part => (part._id == formValue.part)).chapters.map(chapter => (
-                                        <option value={chapter._id}>{chapter.title}</option>
+                                        <option key={Math.random()} value={chapter._id}>{chapter.title}</option>
                                     ))
                                 }
                             </select>

@@ -63,10 +63,10 @@ function DeletePart() {
       </label>
                         <div className="relative">
                             <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="course" onChange={(e) => setFormValue({ ...formValue, course: e.target.value })} value={formValue.course} required>
-                                <option value="">Select A Course</option>
+                                <option key={Math.random()} value="">Select A Course</option>
                                 {
                                     UMCData.allCourse.map(course => (
-                                        <option value={course._id}>{course.title}</option>
+                                        <option key={Math.random()} value={course._id}>{course.title}</option>
                                     ))
                                 }
                             </select>
@@ -81,10 +81,10 @@ function DeletePart() {
                                 </label>
                         <div className="relative">
                             <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="part" onChange={(e) => setFormValue({ ...formValue, part: e.target.value })} value={formValue.part} required >
-                                <option value="">Select A Part</option>
+                                <option key={Math.random()} value="">Select A Part</option>
                                 {
                                     formValue.course && UMCData.allCourse.find(course => course._id == formValue.course).parts.map(part => (
-                                        <option value={part._id}>{part.title}</option>
+                                        <option key={Math.random()} value={part._id}>{part.title}</option>
                                     ))
                                 }
                             </select>

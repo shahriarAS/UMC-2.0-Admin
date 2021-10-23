@@ -162,9 +162,13 @@ function ManageOrder({ setDisapprovedOrder }) {
                 <table className="min-w-full" {...getTableProps()}>
                   <thead>
                     {headerGroups.map((headerGroup) => (
-                      <tr {...headerGroup.getHeaderGroupProps()}>
+                      <tr
+                        key={Math.random()}
+                        {...headerGroup.getHeaderGroupProps()}
+                      >
                         {headerGroup.headers.map((column) => (
                           <th
+                            key={Math.random()}
                             {...column.getHeaderProps(
                               column.getSortByToggleProps()
                             )}
@@ -187,10 +191,11 @@ function ManageOrder({ setDisapprovedOrder }) {
                     {rows.map((row) => {
                       prepareRow(row);
                       return (
-                        <tr {...row.getRowProps()}>
+                        <tr key={Math.random()} {...row.getRowProps()}>
                           {row.cells.map((cell) => {
                             return cell.column.id == "created_at" ? (
                               <td
+                                key={Math.random()}
                                 {...cell.getCellProps()}
                                 className="px-6 py-4 whitespace-no-wrap border-b border-gray-500"
                               >

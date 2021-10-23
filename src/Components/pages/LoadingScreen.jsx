@@ -11,8 +11,8 @@ function LoadingScreen() {
                     <path id="arc-right-up" fill="none" d="M 100 90 A 90 90 0 0 0 190 0" />
                 </svg>
 
-                <text x="150" y="50" fill="#ffffff" font-family="Helvetica Neue,Helvetica,Arial" font-size="24"
-                    text-anchor="middle">
+                <text x="150" y="50" fill="#ffffff" fontFamily="Helvetica Neue,Helvetica,Arial" fontSize="24"
+                    textAnchor="middle">
                     L O A D I N G
   </text>
                 <circle cx="15" cy="15" r="15">

@@ -79,10 +79,10 @@ function AddPart() {
       </label>
                         <div className="relative">
                             <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="course" onChange={(e) => setFormValue({ ...formValue, course: e.target.value })} value={formValue.course} required>
-                                <option value="">Select A Course</option>
+                                <option key={Math.random()} value="">Select A Course</option>
                                 {
                                     UMCData.allCourse.map(course => (
-                                        <option value={course._id}>{course.title}</option>
+                                        <option key={Math.random()} value={course._id}>{course.title}</option>
                                     ))
                                 }
                             </select>

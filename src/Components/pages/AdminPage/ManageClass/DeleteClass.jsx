@@ -66,10 +66,10 @@ function DeleteClass() {
       </label>
                         <div className="relative">
                             <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="course" onChange={(e) => setFormValue({ ...formValue, course: e.target.value })} value={formValue.course} required>
-                                <option value="">Select A Course</option>
+                                <option key={Math.random()} value="">Select A Course</option>
                                 {
                                     UMCData.allCourse.map(course => (
-                                        <option value={course._id}>{course.title}</option>
+                                        <option key={Math.random()} value={course._id}>{course.title}</option>
                                     ))
                                 }
                             </select>
@@ -84,10 +84,10 @@ function DeleteClass() {
                                 </label>
                         <div className="relative">
                             <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="part" onChange={(e) => setFormValue({ ...formValue, part: e.target.value })} value={formValue.part} required >
-                                <option value="">Select A Part</option>
+                                <option key={Math.random()} value="">Select A Part</option>
                                 {
                                     formValue.course && UMCData.allCourse.find(course => course._id == formValue.course).parts.map(part => (
-                                        <option value={part._id}>{part.title}</option>
+                                        <option key={Math.random()} value={part._id}>{part.title}</option>
                                     ))
                                 }
                             </select>
@@ -104,10 +104,10 @@ function DeleteClass() {
                                 </label>
                         <div className="relative">
                             <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="chapter" onChange={(e) => setFormValue({ ...formValue, chapter: e.target.value })} value={formValue.chapter} required >
-                                <option value="">Select A Chapter</option>
+                                <option key={Math.random()} value="">Select A Chapter</option>
                                 {
                                     formValue.part && UMCData.allCourse.find(course => course._id == formValue.course).parts.find(part => (part._id == formValue.part)).chapters.map(chapter => (
-                                        <option value={chapter._id}>{chapter.title}</option>
+                                        <option key={Math.random()} value={chapter._id}>{chapter.title}</option>
                                     ))
                                 }
                             </select>
@@ -122,10 +122,10 @@ function DeleteClass() {
                                 </label>
                         <div className="relative">
                             <select className="block appearance-none w-full bg-gray-200 border border-gray-700 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="class" onChange={(e) => setFormValue({ ...formValue, class: e.target.value })} value={formValue.class} required >
-                                <option value="">Select A Class</option>
+                                <option key={Math.random()} value="">Select A Class</option>
                                 {
                                     formValue.chapter && UMCData.allCourse.find(course => course._id == formValue.course).parts.find(part => (part._id == formValue.part)).chapters.find(chapter => (chapter._id == formValue.chapter)).classes.map(classItem => (
-                                        <option value={classItem._id}>{classItem.title}</option>
+                                        <option key={Math.random()} value={classItem._id}>{classItem.title}</option>
                                     ))
 
                                 }
