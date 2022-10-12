@@ -2,6 +2,16 @@
 
 This is the admin frontend part of **[UMC LMS](https://github.com/shahriar-programmer/umc-lms)** Webapp.
 
+* * *
+### Live Site:
+
+[Admin Live Site Link](https://umc2admin.netlify.app/)
+
+**Username:** `demo`
+**Password:** `demoPa$$`
+
+* * *
+
 ### Frontend Challenges I Faced:
 - WYSIWYG editor for description field.
 - Making dashboard responsive.
